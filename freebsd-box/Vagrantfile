@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # config.vm.guest = :freebsd
+  config.vm.box = 'generic/freebsd11'
+  # config.vm.hostname = 'freebsd'
+  config.vm.network 'private_network', type: 'dhcp'
+  config.vm.synced_folder './', '/vagrant', id: 'vagrant-root', type: 'nfs'
+  config.ssh.shell = 'sh'
+  config.vm.base_mac = '080027D14C66'
+
+  config.vm.provider 'virtualbox' do |v|
+    v.memory = 1024
+    v.cpus = 1
+    v.gui = true
+    v.customize ['modifyvm', :id, '--hwvirtex', 'on']
+  end
+
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :machine # :machine or :box
+  end
+end

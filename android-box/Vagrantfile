@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = 'dictcp/android-x86'
+  config.vm.hostname = 'android'
+  config.vm.network 'private_network', type: 'dhcp'
+  config.vm.boot_timeout = 300
+
+  config.vm.provider 'virtualbox' do |v|
+    v.customize ['modifyvm', :id, '--vram', '16']
+    v.customize ['modifyvm', :id, '--mouse', 'usb']
+    v.memory = 512
+    v.cpus = 1
+    v.gui = true
+  end
+
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :machine # :machine or :box
+  end
+end
