@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = 'senglin/win-10-enterprise-vs2015community'
+  config.vm.box_version = '1.0.0'
+  config.vm.hostname = 'windows'
+  config.vm.network 'private_network', type: 'dhcp'
+  # config.vm.synced_folder './', 'C:\Users\IEUser', id: 'vagrant-windows'
+
+  config.vm.provider 'virtualbox' do |v|
+    v.customize ['modifyvm', :id, '--vram', '16']
+    v.memory = 2048
+    v.cpus = 2
+    v.gui = true
+  end
+
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :machine # :machine or :box
+  end
+
+  if Vagrant.has_plugin?('vagrant-vbguest')
+    config.vbguest.iso_path = '/usr/share/virtualbox/VBoxGuestAdditions.iso'
+  end
+end
