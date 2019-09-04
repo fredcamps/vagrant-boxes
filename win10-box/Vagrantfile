@@ -21,6 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "--audiocontroller", "hda",
       "--usb", "on",
       "--usbxhci", "on",
+      "--usbehci", "on"
     ]
     v.customize 'post-boot', ["controlvm", :id, "webcam", "attach", ".0"]
   end
