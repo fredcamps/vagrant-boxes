@@ -13,6 +13,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.memory = 2048
     v.cpus = 2
     v.gui = true
+
+    v.customize [
+      "modifyvm", :id,
+      "--vram", "16",
+      "--audio", "pulse",
+      "--audiocontroller", "hda",
+      "--usb", "on",
+      "--usbxhci", "on",
+    ]
+    v.customize 'post-boot', ["controlvm", :id, "webcam", "attach", ".0"]
   end
 
   if Vagrant.has_plugin?('vagrant-cachier')
