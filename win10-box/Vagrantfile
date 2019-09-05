@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     v.customize [
       "modifyvm", :id,
-      "--vram", "16",
+      "--vram", "128",
       "--audio", "pulse",
       "--audiocontroller", "hda",
       "--usb", "on",
@@ -24,6 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "--usbehci", "on"
     ]
     v.customize 'post-boot', ["controlvm", :id, "webcam", "attach", ".0"]
+    v.customize 'post-boot', ["controlvm", :id, "clipboard", "bidirectional"]
   end
 
   if Vagrant.has_plugin?('vagrant-cachier')
