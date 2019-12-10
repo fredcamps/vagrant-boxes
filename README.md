@@ -5,6 +5,6 @@
 * Windows 7
 * Windows 10
 * Android X86
-* MacOSX Sierra (needs some adjustments)
+* Kali Linux
 * FreeBSD
-* Kali Linux (needs configuring and test)
+* MacOSX Sierra (needs some adjustments)
