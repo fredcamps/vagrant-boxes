@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize 'post-boot', ["controlvm", :id, "webcam", "attach", ".0"]
 
     v.customize ["storageattach", :id,
-                 "--storagectl", "SATA Controller",
+                 "--storagectl", "IDE Controller",
                  "--port", "1", "--device", "0",
                  "--type", "dvddrive",
                  "--medium", "emptydrive"]
