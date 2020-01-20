@@ -11,13 +11,36 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.base_mac = '080027D14C66'
 
   config.vm.provider 'virtualbox' do |v|
-    v.memory = 1024
+    v.memory = 2048
     v.cpus = 2
     v.gui = true
-    v.customize ['modifyvm', :id, '--hwvirtex', 'on']
+    v.customize ['modifyvm', :id,
+                 '--hwvirtex', 'on',
+                 "--usb", "on",
+                 "--usbxhci", "on",
+                 "--usbehci", "on",
+                 "--vram", "16",
+                 "--graphicscontroller", "vmsvga",
+                 "--accelerate3d", "on",
+                 "--clipboard", "bidirectional",
+                 "--draganddrop", "bidirectional"]
+
+    v.customize ["storageattach", :id,
+                 "--storagectl", "IDE Controller",
+                 "--port", "1", "--device", "0",
+                 "--type", "dvddrive",
+                 "--medium", "emptydrive"]
+
+    v.customize ['setextradata', :id, 'GUI/ScaleFactor', '1.00']
+    v.customize ['setextradata', :id, 'VBoxInternal2/EfiGraphicsResolution', '1024x768']
+    v.customize ['setextradata', :id, 'CustomVideoMode1', '1024x768x32' ]
+    v.customize ['setextradata', :id, 'GUI/CustomVideoMode1', '1024x768x32']
   end
 
   if Vagrant.has_plugin?('vagrant-cachier')
     config.cache.scope = :machine # :machine or :box
+  end
+  if Vagrant.has_plugin?('vagrant-vbguest')
+    config.vbguest.auto_update = false
   end
 end

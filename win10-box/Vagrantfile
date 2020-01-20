@@ -17,7 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize [
       "modifyvm", :id,
       "--vram", "128",
-      "--audio", "pulse",
+      "--graphicscontroller", "vmsvga",
+      "--accelerate3d", "on",
+      "--audio", "alsa",
       "--audiocontroller", "hda",
       "--clipboard", "bidirectional",
       "--draganddrop", "bidirectional",
